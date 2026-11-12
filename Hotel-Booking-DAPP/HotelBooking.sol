@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
 /// @title HotelBooking
 /// @notice Escrow-based hotel booking. Guest = sender, Hotel = receiver,
 ///         the blockchain (this contract) = trusted middle layer.
