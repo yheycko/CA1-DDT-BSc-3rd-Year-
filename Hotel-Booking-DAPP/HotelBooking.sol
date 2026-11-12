@@ -35,3 +35,34 @@ contract HotelBooking {
         require(msg.sender == hotel, "Only hotel can do this");
         _;
     }
+
+    // Hotel confirms the guest arrived, money is released to the hotel
+    function checkIn(uint id) public {
+        require(msg.sender == owner, "Only owner");
+        require(roomGuest[id] != address(0), "Room not booked");
+        address guest = roomGuest[id];
+        uint amount = roomPaid[id];
+        delete roomGuest[id];                    // reset BEFORE sending money
+        delete roomPaid[id];
+       
+     (bool ok, ) = payable(owner).call{value: amount}("");
+           require(ok, "Payment failed");
+           emit CheckedIn(id, guest, amount);
+    }
+
+    // Guest cancels before check-in and gets a full refund
+    function cancel(uint id) public {
+        require(msg.sender == roomGuest[id], "Only the guest can cancel");
+        uint amount = roomPaid[id];
+        delete roomGuest[id];                    // reset BEFORE sending money
+        delete roomPaid[id];
+       (bool ok, ) = payable(msg.sender).call{value: amount}("");
+        require(ok, "Refund failed");
+        emit Cancelled(id, msg.sender, amount);
+    }
+
+    // Money currently held by the contract
+    function getBalance() public view returns (uint) {
+        return address(this).balance;
+    }
+}
