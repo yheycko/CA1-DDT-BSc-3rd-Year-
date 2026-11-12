@@ -1,0 +1,12 @@
+The HotelBooking  smart contract acts as a trusted intermediary between the guest and the hotel owner.
+When the contract is deployed, the deployer’s blockchain address becomes the owner of the contract through the Solidity msg.sender variable.
+The smart contract contains mappings that storeroom prices, booking information and payments currently held in escrow.
+The hotel owner can create rooms and assign booking prices using the addRoom() function. 
+Guest can then select and available room and reserve it by sending the exact amount required through the payable bookRoom() function.
+
+Unlike traditional booking systems where payments are transferred immediately to the hotel, the smart contract temporarily stores the funds.
+This escrow mechanism ensure that payment is only released after the hotel confirms that the guest has checked in successfully.
+If required, the guest can cancel a booking and automatically receive a refund.
+
+Several validation checks were implemented using Solidity’s require() statements to ensure data integrity and prevent invalid transactions.
+These checks verify room availability, payment accuracy and user permissions before any action can be executed.
