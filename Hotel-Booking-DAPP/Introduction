@@ -1,0 +1,8 @@
+The purpose of the project was to design and implement a decentralized hotel booking system using blockchain  technology and Ethereum smart contracts.
+Traditional hotel booking platforms rely on centralized databases and third-party payment providers to manage reservation and process payments while effective
+, these systems can introduce transaction fees delay, and trust issues between customers and service providers. Blockchain technology offers an alternative by
+providing a transparent, immutable service decentralized ledger where transactions can be verified without relying on intermediaries (Ethereum Foundation 2024).
+
+This project developed a HotelBooking smart contract using Solidity and deployed it on a local Ethereum blockchain using Ganache. The solution uses a secure escrow
+mechanism that stores guest payments within the smart contract until the guest successfully checks into the hotel. This approach increases trust between both parties while
+demonstrating the practical application of blockchain technologies in the hospitality industry.
