@@ -1,24 +1,38 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-/// @title HotelBooking
-/// @notice Escrow-based hotel booking. Guest = sender, Hotel = receiver,
-///         the blockchain (this contract) = trusted middle layer.
+// Hotel booking with escrow.
+// Guest = sender, Hotel owner = receiver, this contract = middle layer.
 contract HotelBooking {
-    enum Status { None, Booked, CheckedIn, Cancelled }
+    address public owner;                        // the hotel
+    mapping(uint => uint) public roomPrice;      // room id => price in wei
+    mapping(uint => address) public roomGuest;   // room id => guest who booked
+    mapping(uint => uint) public roomPaid;       // room id => money held in escrow
 
-    struct Room {
-        uint256 pricePerNight; // in wei
-        bool exists;
+    event RoomAdded(uint id, uint price);
+    event RoomBooked(uint id, address guest, uint amount);
+    event CheckedIn(uint id, address guest, uint amount);
+    event Cancelled(uint id, address guest, uint amount);
+
+    constructor() {
+        owner = msg.sender;                      // deployer becomes the hotel owner
     }
 
-    struct Booking {
-        address guest;      // sender
-        uint256 roomId;
-        uint256 nights;
-        uint256 amount;     // wei held in escrow
-        Status status;
+    // Hotel adds a room and sets its price
+    function addRoom(uint id, uint price) public {
+        require(msg.sender == owner, "Only owner");
+        require(price > 0, "Price must be above 0");
+        require(roomGuest[id] == address(0), "Room is booked");
+        roomPrice[id] = price;
+        emit RoomAdded(id, price);
     }
+
+
+
+
+
+
+
 
     address payable public hotel;               // receiver
     uint256 public bookingCount;
