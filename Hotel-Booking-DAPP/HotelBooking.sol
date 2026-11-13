@@ -26,28 +26,14 @@ contract HotelBooking {
         roomPrice[id] = price;
         emit RoomAdded(id, price);
     }
-
-
-
-
-
-
-
-
-    address payable public hotel;               // receiver
-    uint256 public bookingCount;
-    mapping(uint256 => Room) public rooms;
-    mapping(uint256 => Booking) public bookings;
-    mapping(uint256 => bool) public roomBusy;   // one active booking per room
-
-    event RoomAdded(uint256 indexed roomId, uint256 pricePerNight);
-    event RoomBooked(uint256 indexed bookingId, address indexed guest, uint256 roomId, uint256 amount);
-    event CheckedIn(uint256 indexed bookingId, address indexed hotel, uint256 amount);
-    event BookingCancelled(uint256 indexed bookingId, address indexed guest, uint256 refund);
-
-    modifier onlyHotel() {
-        require(msg.sender == hotel, "Only hotel can do this");
-        _;
+ // Guest books a room and pays the exact price into the contract
+    function bookRoom(uint id) public payable {
+        require(roomPrice[id] > 0, "Room does not exist");
+        require(roomGuest[id] == address(0), "Room already booked");
+        require(msg.value == roomPrice[id], "Wrong amount");
+        roomGuest[id] = msg.sender;
+        roomPaid[id] = msg.value;
+        emit RoomBooked(id, msg.sender, msg.value);
     }
 
     // Hotel confirms the guest arrived, money is released to the hotel
@@ -58,10 +44,9 @@ contract HotelBooking {
         uint amount = roomPaid[id];
         delete roomGuest[id];                    // reset BEFORE sending money
         delete roomPaid[id];
-       
-     (bool ok, ) = payable(owner).call{value: amount}("");
-           require(ok, "Payment failed");
-           emit CheckedIn(id, guest, amount);
+        (bool ok, ) = payable(owner).call{value: amount}("");
+        require(ok, "Payment failed");
+        emit CheckedIn(id, guest, amount);
     }
 
     // Guest cancels before check-in and gets a full refund
@@ -70,7 +55,7 @@ contract HotelBooking {
         uint amount = roomPaid[id];
         delete roomGuest[id];                    // reset BEFORE sending money
         delete roomPaid[id];
-       (bool ok, ) = payable(msg.sender).call{value: amount}("");
+        (bool ok, ) = payable(msg.sender).call{value: amount}("");
         require(ok, "Refund failed");
         emit Cancelled(id, msg.sender, amount);
     }
@@ -80,3 +65,11 @@ contract HotelBooking {
         return address(this).balance;
     }
 }
+
+
+
+
+
+
+
+  
