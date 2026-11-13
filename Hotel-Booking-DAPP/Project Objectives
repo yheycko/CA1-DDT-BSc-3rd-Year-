@@ -1,7 +1,0 @@
-Develop a smart contract using Solidity.
-Create a hotel room booking system on blockchain
-Implement secure escrow-based payments.
-Allow hotel owners to manage rooms and pricing
-Enable guests to make reservations securely.
-Automatically release payments after check-in.
-Test all smart contract functions using Ganache and Remix IDE.

@@ -1,0 +1,17 @@
+Develop a smart contract using Solidity.
+Create a hotel room booking system on blockchain
+Implement secure escrow-based payments.
+Allow hotel owners to manage rooms and pricing
+Enable guests to make reservations securely.
+Automatically release payments after check-in.
+Test all smart contract functions using Ganache and Remix IDE.
+
+
+
+"Why Blockchain Instead of a Database?"
+
+A traditional database is typically controlled by a single organisation, 
+and records can be modified by administrators. In contrast, blockchain stores transactions
+across a distributed network where records are immutable and transparent. Smart contracts also allow business
+rules to be executed automatically without requiring a trusted third party. For hotel bookings, this improves trust
+, accountability and transparency between guests and hotel operators (Ethereum Foundation, 2024)
