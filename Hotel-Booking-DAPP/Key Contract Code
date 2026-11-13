@@ -1,0 +1,12 @@
+function bookRoom(uint roomId, uint nights) external payable {
+    require(!roomBusy[roomId], "Room already booked");
+    require(msg.value == price * nights, "Wrong amount");
+    bookings[++id] = Booking(msg.sender, roomId, msg.value);
+    roomBusy[roomId] = true;
+    emit RoomBooked(id, msg.sender, roomId, msg.value);
+}
+
+
+The code fragment demonstrates the booking validation process. The contract verifies room availability, 
+confirms the payment amount and records booking details before storing funds within the escrow mechanism.Simplified
+from HotelBooking.sol: checks the room is free and the payment is exact, then records the booking.
