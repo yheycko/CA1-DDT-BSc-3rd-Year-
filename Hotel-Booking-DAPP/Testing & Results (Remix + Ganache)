@@ -1,0 +1,5 @@
+Short Explanation:
+Testing was conducted using Remix IDE and Ganache to validate the functionality of the HotelBooking smart contract.
+All test scenarios executed successfully, including room creation, secure booking, escrow payment storage, payment  release after check-in and cancellation processing.
+The successful completion of all tests demonstrates that the smart contract behaved according to the project requirements.
+
