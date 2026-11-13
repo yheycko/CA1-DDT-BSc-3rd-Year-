@@ -1,0 +1,6 @@
+This project demonstrated the successful implementation of a blockchain-based hotel booking application using Ethereum smart contracts.
+Through the combination of Solidity, Remix IDE and Ganache, the solution achieved secure room management, escrow-based payment handling
+and automated transaction execution. Testing confirmed that all major functions operated as expected. The project illustrates how blockchain 
+technology can improve trust, transparency and automation within hospitality booking systems while reducing dependency on centralised intermediaries.
+
+
