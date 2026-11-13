@@ -1,0 +1,8 @@
+ECDSA digital signatures (secp256k1): the guest signs every booking with a private key and the network checks it with the public key, so nobody can fake a booking or a payment.
+
+Keccak-256 hashing: each block stores the hash of the previous block, so the bookings form a linked chain.
+
+Smart contract security was further enhanced through 
+the use of Solidity’s require() statements. These validation checks prevent unauthorized actions, ensure correct payment amounts and verify room availability
+before processing transactions. This reduces the likelihood of invalid or malicious transactions being executed on the blockchain.
+
