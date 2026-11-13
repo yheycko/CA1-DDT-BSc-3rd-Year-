@@ -1,12 +1,11 @@
-function bookRoom(uint roomId, uint nights) external payable {
-    require(!roomBusy[roomId], "Room already booked");
-    require(msg.value == price * nights, "Wrong amount");
-    bookings[++id] = Booking(msg.sender, roomId, msg.value);
-    roomBusy[roomId] = true;
-    emit RoomBooked(id, msg.sender, roomId, msg.value);
-}
+function bookRoom(uint id) public payable {    require(roomPrice[id] > 0, "Room does not exist"); 
+require(roomGuest[id] == address(0), "Room already booked");    require(msg.value == roomPrice[id], "Wrong amount");
+roomGuest[id] = msg.sender;    roomPaid[id] = msg.value;    emit RoomBooked(id, msg.sender, msg.value);}
+
+The code fragment demonstrates the booking validation process within the HotelBooking smart contract. Before confirming a reservation,
+the contract verifies that the room exists, checks that it has not already been booked, and validates that the correct payment amount 
+has been provided. Once these conditions are satisfied, the guest address and payment details are recorded on the blockchain, 
+and the funds are stored securely within the escrow mechanism.
 
 
-The code fragment demonstrates the booking validation process. The contract verifies room availability, 
-confirms the payment amount and records booking details before storing funds within the escrow mechanism.Simplified
-from HotelBooking.sol: checks the room is free and the payment is exact, then records the booking.
+
